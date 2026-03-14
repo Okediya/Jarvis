@@ -1,0 +1,11 @@
+﻿next.config.ts(5,3): error TS2353: Object literal may only specify known properties, and 'eslint' does not exist in type 'NextConfig'.
+src/hooks/useGeminiLive.ts(283,40): error TS2339: Property 'receive' does not exist on type 'Session'.
+src/hooks/useGeminiLive.ts(320,53): error TS7006: Parameter 'fc' implicitly has an 'any' type.
+src/hooks/useGeminiLive.ts(356,19): error TS2322: Type '{ name: string; description: string; parameters: { type: "object"; properties: { type: { type: string; enum: string[]; description: string; }; scene: { type: string; description: string; properties: { objects: { ...; }; background: { ...; }; ambientLight: { ...; }; }; }; code: { ...; }; navigation: { ...; }; teachin...' is not assignable to type 'FunctionDeclaration[]'.
+  Type '{ name: string; description: string; parameters: { type: "object"; properties: { type: { type: string; enum: string[]; description: string; }; scene: { type: string; description: string; properties: { objects: { ...; }; background: { ...; }; ambientLight: { ...; }; }; }; code: { ...; }; navigation: { ...; }; teachin...' is not assignable to type 'FunctionDeclaration'.
+    The types of 'parameters.properties' are incompatible between these types.
+      Type '{ type: { type: string; enum: string[]; description: string; }; scene: { type: string; description: string; properties: { objects: { type: string; items: { type: string; properties: { id: { type: string; }; geometry: { ...; }; ... 6 more ...; animate: { ...; }; }; required: string[]; }; }; background: { ...; }; ambi...' is not assignable to type 'Record<string, Schema>'.
+        Property 'type' is incompatible with index signature.
+          Type '{ type: string; enum: string[]; description: string; }' is not assignable to type 'Schema'.
+            Types of property 'type' are incompatible.
+              Type 'string' is not assignable to type 'Type | undefined'.
