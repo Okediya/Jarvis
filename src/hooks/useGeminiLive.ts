@@ -289,7 +289,7 @@ export function useGeminiLive(): UseGeminiLiveReturn {
     try {
       const apiKey = await getApiKey();
       if (!apiKey) {
-        throw new Error('API Key is missing. Please add NEXT_PUBLIC_GEMINI_API_KEY to your Cloud Run environment variables.');
+        throw new Error('API Key is missing. Please add GEMINI_API_KEY to your Cloud Run environment variables.');
       }
 
       const ai = new GoogleGenAI({ apiKey });
