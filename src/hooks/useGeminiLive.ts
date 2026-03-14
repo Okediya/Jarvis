@@ -11,8 +11,7 @@ import type {
   InputSource,
   ConnectionStatus,
 } from '@/lib/types';
-
-const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
+import { getApiKey } from '@/app/actions';
 const MODEL = 'gemini-2.5-flash-native-audio-preview-12-2025';
 
 const TOOL_DECLARATIONS: FunctionDeclaration[] = [
@@ -288,7 +287,12 @@ export function useGeminiLive(): UseGeminiLiveReturn {
     setStatus('connecting');
 
     try {
-      const ai = new GoogleGenAI({ apiKey: API_KEY });
+      const apiKey = await getApiKey();
+      if (!apiKey) {
+        throw new Error('API Key is missing. Please add NEXT_PUBLIC_GEMINI_API_KEY to your Cloud Run environment variables.');
+      }
+
+      const ai = new GoogleGenAI({ apiKey });
 
       // Initialize audio player
       const player = new AudioPlayer();
