@@ -113,6 +113,24 @@ const TOOL_DECLARATIONS: FunctionDeclaration[] = [
       required: ['type'],
     },
   },
+  {
+    name: 'build_software_project',
+    description: 'Execute scaffolding to build a real software project locally based on the user\'s chosen tech stack and project name.',
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        techStack: {
+          type: Type.STRING,
+          description: 'The chosen technology stack (e.g., "nextjs", "vite-react", "vite-vue", "react"). Default to "nextjs" if unsure.',
+        },
+        projectName: {
+          type: Type.STRING,
+          description: 'The name of the project folder to create (kebab-case, e.g., "my-new-app").',
+        }
+      },
+      required: ['techStack', 'projectName'],
+    },
+  },
 ];
 
 const SYSTEM_INSTRUCTION = `You are Jarvis, an advanced multimodal AI assistant for the Gemini Live Agent Challenge hackathon.
@@ -128,10 +146,13 @@ RULES:
 - Always call update_prototype when the user asks to build, create, show, make, design, display, navigate, explain, or teach.
 - For hardware prototypes, use realistic colors and multiple objects to create detailed scenes.
 - For software prototypes, generate complete, self-contained HTML with modern styling (use Tailwind CDN).
+- After successfully building a **software prototype**, explicitly converse with the user and ask: "Do you want to build this as a real software project?"
+- If the user says YES to building the real software project, ask them what tech stack they want to use (e.g., Next.js, Vite React, Vue) and what they want to name the project.
+- Once you have the tech stack and project name, call the \`build_software_project\` tool.
 - For navigation, use actual coordinate values for the locations mentioned.
 - For teaching, provide clear, structured explanations with key points.
 - You can iteratively update prototypes — each call replaces the current prototype.
-- Respond conversationally AND call the tool. Keep spoken responses brief but helpful.`;
+- Respond conversationally AND call the tools. Keep spoken responses brief but helpful.`;
 
 export interface UseGeminiLiveReturn {
   status: ConnectionStatus;
@@ -367,17 +388,52 @@ export function useGeminiLive(): UseGeminiLiveReturn {
                   if (fc.name === 'update_prototype' && fc.args) {
                     const prototypeData = fc.args as unknown as PrototypeData;
                     setCurrentPrototype(prototypeData);
+                    
+                    // Send tool response
+                    session.sendToolResponse({
+                      functionResponses: [{
+                        id: fc.id,
+                        name: fc.name,
+                        response: { success: true, message: 'Prototype updated successfully' },
+                      }],
+                    });
+                  }
+                  
+                  if (fc.name === 'build_software_project' && fc.args) {
+                    const args = fc.args as any;
+                    console.log('Building project:', args);
+                    
+                    // Note: we don't await this so we can send the response back quickly
+                    fetch('/api/build', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(args)
+                    }).then(async (res) => {
+                      const result = await res.json();
+                      const msg = result.success ? 
+                        `Successfully ran build command for ${args.projectName} with ${args.techStack}` : 
+                        `Failed to build: ${result.error || 'Unknown error'}`;
+                      
+                      // In a real app we might want to feed this back to the model later,
+                      // but for now we just log it since we must respond immediately to the tool call
+                      console.log('Project build result:', msg);
+                    }).catch(err => {
+                      console.error('Project build failed to execute:', err);
+                    });
+
+                    // Send tool response immediately so the model knows we started
+                    session.sendToolResponse({
+                      functionResponses: [{
+                        id: fc.id,
+                        name: fc.name,
+                        response: { 
+                          success: true, 
+                          message: 'I have started scaffolding the project on the local machine.' 
+                        },
+                      }],
+                    });
                   }
                 }
-
-                // Send tool response
-                session.sendToolResponse({
-                  functionResponses: functionCalls.map((fc: any) => ({
-                    id: fc.id,
-                    name: fc.name,
-                    response: { success: true, message: 'Prototype updated successfully' },
-                  })),
-                });
 
                 // RESUME audio input after tool response is sent
                 isProcessingToolCallRef.current = false;
