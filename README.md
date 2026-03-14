@@ -155,6 +155,8 @@ jarvis/
 
 ### Google Cloud Run (Recommended — Free Tier)
 
+**Proof of Deployment:** [Watch Video (hosted in repo)](https://github.com/Okediya/Jarvis/raw/main/public/videos/cloud-proof.mp4)
+
 ```bash
 # Build the container
 docker build -t gcr.io/YOUR_PROJECT/jarvis \
