@@ -25,7 +25,7 @@ export default function Home() {
   } = useGeminiLive();
 
   return (
-    <div className="flex h-screen w-screen bg-black overflow-hidden">
+    <div className="flex flex-col md:flex-row h-[100dvh] w-screen bg-black overflow-hidden">
       {/* Sidebar */}
       <Sidebar
         status={status}
