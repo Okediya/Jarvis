@@ -20,6 +20,7 @@
 - 🖥️ **Screen sharing**: Share your screen and Jarvis explains what it sees
 - 🔧 **3D Hardware Prototypes**: Build cars, planes, gadgets with Three.js
 - 💻 **Software Prototypes**: Generate web apps rendered live in a sandbox
+- 🏗️ **Conversational App Scaffolding**: Jarvis can actually *build* the real software project locally (Next.js, Vite React, Vue) after prototyping it for you!
 - 🗺️ **Navigation Maps**: Plot routes with markers on interactive Leaflet maps
 - 📖 **Visual Teacher**: Screen-share mode for learning anything on screen
 - ⚡ **Barge-in Interruptions**: Interrupt naturally like a real conversation
@@ -83,6 +84,12 @@ Open [http://localhost:3000](http://localhost:3000) in Chrome.
 - "Share my screen and explain this webpage"
 - "Teach me what this code does"
 - "Explain this math diagram I'm looking at"
+
+### 🏗️ How to Scaffold Real Projects
+Once Jarvis generates a **Software Prototype** for you, it will verbally ask if you want to build it as a real project.
+1. Answer "**Yes, let's use Next.js and call it my-new-app.**"
+2. Jarvis will execute the CLI scaffolding tool behind the scenes!
+3. Check the **parent directory** of your `jarvis/` folder; you will find your newly generated Next.js, Vite React, or Vue application ready to go.
 
 ---
 
