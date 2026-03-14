@@ -151,36 +151,6 @@ jarvis/
 
 ---
 
-## 🎬 4-Minute Demo Script
-
-Use this script for your hackathon video submission:
-
-### Minute 0-1: Introduction (60s)
-- Show the Jarvis UI and explain the concept
-- Highlight the red-black theme and multimodal modes
-- Click "Connect to Jarvis" and greet it
-
-### Minute 1-2: Hardware Prototype (60s)
-- Say: *"Build me a red sports car with spinning wheels"*
-- Watch the 3D car appear in real-time
-- Say: *"Now turn it into a flying airplane with wings"*
-- Show the prototype updating seamlessly
-
-### Minute 2-3: Software + Navigation (60s)
-- Say: *"Create a fitness tracker dashboard web app"*
-- Show the web app rendering in the iframe
-- Say: *"Navigate from Ibadan to Lagos airport"*
-- Show the map with animated route
-
-### Minute 3-4: Visual Teacher + Wrap-up (60s)
-- Switch to Screen Share mode
-- Share a code editor or webpage
-- Say: *"Explain what's on my screen"*
-- Show the structured explanation appearing
-- End with a summary of capabilities
-
----
-
 ## ☁️ Deployment
 
 ### Google Cloud Run (Recommended — Free Tier)
@@ -232,4 +202,3 @@ npx -y firebase-tools deploy --only hosting
 This project is open source under the [MIT License](LICENSE).
 
 Built for the **Gemini Live Agent Challenge** hackathon.  
-Made with ❤️ and a lot of AI-powered coffee.
