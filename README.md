@@ -49,7 +49,7 @@ npm install
 ### 3. Configure API Key
 Create a `.env.local` file:
 ```
-NEXT_PUBLIC_GEMINI_API_KEY=your_api_key_here
+GEMINI_API_KEY=your_api_key_here
 ```
 
 ### 4. Run Locally
