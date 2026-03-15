@@ -160,7 +160,7 @@ jarvis/
 ```bash
 # Build the container
 docker build -t gcr.io/YOUR_PROJECT/jarvis \
-  --build-arg NEXT_PUBLIC_GEMINI_API_KEY=your_key .
+  --build-arg GEMINI_API_KEY=your_key .
 
 # Push to Container Registry
 docker push gcr.io/YOUR_PROJECT/jarvis
